@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{name}} — Resume</title>
+  <style>
+    /* ── Embedded font (system-safe stack) ─────────── */
+    @page {
+      size: A4;
+      margin: 0.6in 0.65in;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.5;
+      color: #1a1a1a;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    a { color: #1a5fb4; text-decoration: none; }
+
+    /* ── Header ──────────────────────────────────────── */
+    .header {
+      text-align: center;
+      margin-bottom: 14px;
+      border-bottom: 2px solid #2c3e50;
+      padding-bottom: 10px;
+    }
+    .header h1 {
+      font-size: 20pt;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      color: #2c3e50;
+    }
+    .header .contact {
+      font-size: 9.5pt;
+      color: #555;
+    }
+    .header .contact span + span::before {
+      content: ' | ';
+      color: #aaa;
+    }
+
+    /* ── Section titles ──────────────────────────────── */
+    .section-title {
+      font-size: 12pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #2c3e50;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 3px;
+      margin: 14px 0 8px;
+      page-break-after: avoid;
+    }
+
+    /* ── Summary ──────────────────────────────────────── */
+    .summary p {
+      font-size: 10.5pt;
+      color: #333;
+    }
+
+    /* ── Experience / Education blocks ────────────────── */
+    .entry {
+      margin-bottom: 10px;
+      page-break-inside: avoid;
+    }
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .entry-header .title {
+      font-weight: 700;
+      font-size: 11pt;
+    }
+    .entry-header .dates {
+      font-size: 9.5pt;
+      color: #666;
+      white-space: nowrap;
+    }
+    .entry .subtitle {
+      font-size: 10pt;
+      color: #555;
+      font-style: italic;
+    }
+    .entry ul {
+      margin: 4px 0 0 18px;
+      padding: 0;
+    }
+    .entry li {
+      font-size: 10pt;
+      margin-bottom: 2px;
+      color: #333;
+    }
+
+    /* ── Skills ───────────────────────────────────────── */
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 14px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .skills-list li {
+      font-size: 10pt;
+      color: #333;
+    }
+    .skills-list li::before {
+      content: '•';
+      color: #2c3e50;
+      margin-right: 5px;
+    }
+
+    /* ── Projects ─────────────────────────────────────── */
+    .project { page-break-inside: avoid; margin-bottom: 8px; }
+    .project .name { font-weight: 700; font-size: 10.5pt; }
+    .project .desc { font-size: 10pt; color: #444; }
+
+    /* ── Certifications ──────────────────────────────── */
+    .cert { font-size: 10pt; margin-bottom: 3px; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────── -->
+  <div class="header">
+    <h1>{{name}}</h1>
+    <div class="contact">
+      {{#if email}}<span>{{email}}</span>{{/if}}
+      {{#if phone}}<span>{{phone}}</span>{{/if}}
+      {{#if location}}<span>{{location}}</span>{{/if}}
+      {{#if linkedin}}<span><a href="{{linkedin}}">LinkedIn</a></span>{{/if}}
+      {{#if website}}<span><a href="{{website}}">{{website}}</a></span>{{/if}}
+    </div>
+  </div>
+
+  <!-- ── Summary ─────────────────────────────────── -->
+  {{#if summary}}
+  <div class="summary">
+    <div class="section-title">Professional Summary</div>
+    <p>{{summary}}</p>
+  </div>
+  {{/if}}
+
+  <!-- ── Skills ──────────────────────────────────── -->
+  {{#if skills}}
+  <div>
+    <div class="section-title">Skills</div>
+    <ul class="skills-list">
+      {{#each skills}}
+      <li>{{this}}</li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+
+  <!-- ── Experience ──────────────────────────────── -->
+  {{#if experience}}
+  <div>
+    <div class="section-title">Experience</div>
+    {{#each experience}}
+    <div class="entry">
+      <div class="entry-header">
+        <span class="title">{{this.title}}</span>
+        <span class="dates">{{date_format this.startDate}} – {{date_format this.endDate}}</span>
+      </div>
+      <div class="subtitle">{{this.company}}{{#if this.location}}, {{this.location}}{{/if}}</div>
+      {{#if this.bullets}}
+      <ul>
+        {{#each this.bullets}}
+        <li>{{this}}</li>
+        {{/each}}
+      </ul>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  <!-- ── Education ───────────────────────────────── -->
+  {{#if education}}
+  <div>
+    <div class="section-title">Education</div>
+    {{#each education}}
+    <div class="entry">
+      <div class="entry-header">
+        <span class="title">{{this.degree}}</span>
+        <span class="dates">{{date_format this.startDate}} – {{date_format this.endDate}}</span>
+      </div>
+      <div class="subtitle">{{this.institution}}{{#if this.location}}, {{this.location}}{{/if}}</div>
+      {{#if this.gpa}}<div style="font-size:9.5pt;color:#555;">GPA: {{this.gpa}}</div>{{/if}}
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  <!-- ── Projects ────────────────────────────────── -->
+  {{#if projects}}
+  <div>
+    <div class="section-title">Projects</div>
+    {{#each projects}}
+    <div class="project">
+      <span class="name">{{this.name}}</span>
+      {{#if this.url}} — <a href="{{this.url}}">{{this.url}}</a>{{/if}}
+      <div class="desc">{{this.description}}</div>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  <!-- ── Certifications ──────────────────────────── -->
+  {{#if certifications}}
+  <div>
+    <div class="section-title">Certifications</div>
+    {{#each certifications}}
+    <div class="cert">{{this.name}}{{#if this.date}} — {{date_format this.date}}{{/if}}</div>
+    {{/each}}
+  </div>
+  {{/if}}
+
+</body>
+</html>
