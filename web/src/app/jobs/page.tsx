@@ -59,12 +59,12 @@ export default function JobsPage() {
       transition={{ duration: 0.4 }}
     >
       {/* Header */}
-      <div className="flex justify-between items-start mb-7">
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-7">
         <div>
           <h1 className="text-[28px] font-bold tracking-tight text-text-primary">Jobs</h1>
           <p className="text-sm text-text-tertiary mt-1">Track PDF generation jobs and view results</p>
         </div>
-        <div className="flex gap-5">
+        <div className="flex gap-4 sm:gap-5">
           {[
             { v: MOCK_JOBS.length, l: 'Total', c: '' },
             { v: MOCK_JOBS.filter((j) => j.status === 'completed').length, l: 'Completed', c: 'text-success' },
@@ -78,7 +78,7 @@ export default function JobsPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-[1fr_420px] gap-5 items-start max-lg:grid-cols-1">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-5 items-start">
         {/* List */}
         <div className="bg-bg-card border border-border-default rounded-[14px] overflow-hidden">
           {MOCK_JOBS.map((j, i) => (
@@ -104,7 +104,7 @@ export default function JobsPage() {
         </div>
 
         {/* Detail */}
-        <div className="sticky top-8 bg-bg-card border border-border-default rounded-[14px] min-h-[400px]">
+        <div className="lg:sticky lg:top-8 bg-bg-card border border-border-default rounded-[14px] min-h-[300px] lg:min-h-[400px]">
           <AnimatePresence mode="wait">
             {job ? (
               <motion.div
@@ -113,7 +113,7 @@ export default function JobsPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.97 }}
                 transition={{ duration: 0.25 }}
-                className="p-6"
+                className="p-5 sm:p-6"
               >
                 <h3 className="text-base font-bold font-mono text-text-primary mb-5 pb-3.5 border-b border-border-default">{job.id}</h3>
                 <div className="grid grid-cols-2 gap-4 mb-6">

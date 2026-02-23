@@ -47,7 +47,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-9 max-lg:grid-cols-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-9">
         {STATS.map((stat, i) => (
           <motion.div
             key={stat.label}
@@ -86,12 +86,12 @@ export default function DashboardPage() {
             View all →
           </Link>
         </div>
-        <div className="bg-bg-card border border-border-default rounded-[14px] overflow-hidden">
-          <div className="grid grid-cols-[1.2fr_1.2fr_1fr_0.8fr_0.8fr] px-5 py-3 text-[11px] font-semibold text-text-muted uppercase tracking-wider bg-bg-tertiary border-b border-border-default">
+        <div className="bg-bg-card border border-border-default rounded-[14px] overflow-x-auto">
+          <div className="grid grid-cols-[1.2fr_1.2fr_1fr_0.8fr_0.8fr] min-w-[600px] px-5 py-3 text-[11px] font-semibold text-text-muted uppercase tracking-wider bg-bg-tertiary border-b border-border-default">
             <span>Job ID</span><span>Template</span><span>Status</span><span>ATS Score</span><span>Time</span>
           </div>
           {RECENT_JOBS.map((job) => (
-            <div key={job.id} className="grid grid-cols-[1.2fr_1.2fr_1fr_0.8fr_0.8fr] px-5 py-3.5 text-[13px] text-text-secondary items-center border-b border-border-default last:border-b-0 hover:bg-bg-card-hover transition-colors">
+            <div key={job.id} className="grid grid-cols-[1.2fr_1.2fr_1fr_0.8fr_0.8fr] min-w-[600px] px-5 py-3.5 text-[13px] text-text-secondary items-center border-b border-border-default last:border-b-0 hover:bg-bg-card-hover transition-colors">
               <span className="font-mono text-xs text-text-tertiary">{job.id}</span>
               <span>{job.template}</span>
               <StatusBadge status={job.status} />
@@ -109,7 +109,7 @@ export default function DashboardPage() {
         transition={{ duration: 0.4, delay: 0.5 }}
       >
         <h2 className="text-lg font-semibold text-text-primary mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-3 gap-4 max-lg:grid-cols-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {[
             { href: '/generate', icon: '⬡', label: 'Generate PDF', desc: 'Create a resume PDF from JSON data' },
             { href: '/templates', icon: '❖', label: 'Browse Templates', desc: 'Explore and manage resume templates' },

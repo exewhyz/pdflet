@@ -84,13 +84,13 @@ export default function GeneratePage() {
         <p className="text-sm text-text-tertiary mt-1">Create an ATS-optimized resume PDF from JSON data</p>
       </div>
 
-      <div className="grid grid-cols-[380px_1fr] gap-6 items-start max-lg:grid-cols-1">
+      <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-5 lg:gap-6 items-start">
         {/* Config Panel */}
         <motion.div
           initial={{ opacity: 0, x: -16 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.35, delay: 0.1 }}
-          className="sticky top-8 bg-bg-card border border-border-default rounded-[14px] p-6"
+          className="lg:sticky lg:top-8 bg-bg-card border border-border-default rounded-[14px] p-5 sm:p-6"
         >
           <h3 className="text-[15px] font-semibold text-text-primary mb-5 pb-3 border-b border-border-default">Configuration</h3>
 
@@ -164,14 +164,14 @@ export default function GeneratePage() {
           initial={{ opacity: 0, x: 16 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.35, delay: 0.2 }}
-          className="sticky top-8 bg-bg-card border border-border-default rounded-[14px] p-6"
+          className="lg:sticky lg:top-8 bg-bg-card border border-border-default rounded-[14px] p-5 sm:p-6"
         >
           <h3 className="text-[15px] font-semibold text-text-primary mb-5 pb-3 border-b border-border-default">Resume JSON Data</h3>
           <textarea
             value={jsonData}
             onChange={(e) => setJsonData(e.target.value)}
             spellCheck={false}
-            className="w-full min-h-[520px] p-4 bg-bg-input border border-border-default rounded-[10px] text-text-primary font-mono text-[12.5px] leading-[1.7] resize-y outline-none tab-[2] transition-all focus:border-accent focus:shadow-[0_0_0_3px_var(--color-accent-soft)]"
+            className="w-full min-h-[300px] sm:min-h-[520px] p-3 sm:p-4 bg-bg-input border border-border-default rounded-[10px] text-text-primary font-mono text-[12px] sm:text-[12.5px] leading-[1.7] resize-y outline-none tab-[2] transition-all focus:border-accent focus:shadow-[0_0_0_3px_var(--color-accent-soft)]"
           />
         </motion.div>
       </div>
