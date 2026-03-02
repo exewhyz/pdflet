@@ -12,6 +12,7 @@ import generateRoutes from './api/routes/generateRoutes.js';
 import jobRoutes from './api/routes/jobRoutes.js';
 import templateRoutes from './api/routes/templateRoutes.js';
 import projectRoutes from './api/routes/projectRoutes.js';
+import config from './config/index.js';
 
 const app = express();
 
@@ -22,7 +23,7 @@ app.use(
     origin: [
       'http://localhost:3000',
       'http://localhost:3333',
-      process.env.FRONTEND_URL || '',
+      config.appUrl || '',
     ].filter(Boolean),
     credentials: true,
   }),
