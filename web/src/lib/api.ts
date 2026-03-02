@@ -236,3 +236,34 @@ export function clearActiveApiKey() {
     window.dispatchEvent(new Event('rf_project_changed'));
   }
 }
+
+/**
+ * Ensures an API key is set in localStorage.
+ * On first visit, auto-selects the first available project's API key.
+ * Returns true if a key was already set or successfully auto-selected.
+ */
+export async function ensureActiveApiKey(): Promise<boolean> {
+  if (typeof window === 'undefined') return false;
+
+  const existing = localStorage.getItem('rf_active_api_key') || DEFAULT_API_KEY;
+  if (existing) {
+    if (!localStorage.getItem('rf_active_api_key') && DEFAULT_API_KEY) {
+      localStorage.setItem('rf_active_api_key', DEFAULT_API_KEY);
+    }
+    return true;
+  }
+
+  try {
+    const { projects } = await listProjects();
+    const firstKey = projects?.[0]?.apiKey;
+    if (firstKey) {
+      setActiveApiKey(firstKey);
+      return true;
+    }
+  } catch {
+    // If listing fails, we can't auto-select
+  }
+
+  return false;
+}
+
