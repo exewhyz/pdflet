@@ -42,7 +42,7 @@ WORKDIR /app
 
 # Only copy production dependencies
 COPY package.json package-lock.json* ./
-RUN npm ci --omit=dev
+RUN npm install --omit=dev
 
 # Copy compiled JS and templates
 COPY --from=builder /app/dist ./dist
