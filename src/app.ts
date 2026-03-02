@@ -1,4 +1,6 @@
 import express from 'express';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import cors from 'cors';
 import helmet from 'helmet';
 import { serve } from 'inngest/express';
@@ -9,14 +11,26 @@ import errorHandler from './middleware/errorHandler.js';
 import generateRoutes from './api/routes/generateRoutes.js';
 import jobRoutes from './api/routes/jobRoutes.js';
 import templateRoutes from './api/routes/templateRoutes.js';
+import projectRoutes from './api/routes/projectRoutes.js';
 
 const app = express();
 
 // ── Global middleware ─────────────────────────────────
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3333',
+    process.env.FRONTEND_URL || '',
+  ].filter(Boolean),
+  credentials: true,
+}));
 app.use(express.json({ limit: '5mb' }));
 app.use(rateLimiter);
+
+// ── Serve locally-stored PDFs ─────────────────────────
+const __dirname = dirname(fileURLToPath(import.meta.url));
+app.use('/storage', express.static(join(__dirname, '..', 'storage')));
 
 // ── Health check ──────────────────────────────────────
 app.get('/health', (_req, res) => {
@@ -30,6 +44,7 @@ app.use('/api/inngest', serve({ client: inngest, functions: allFunctions }));
 app.use('/v1', generateRoutes);
 app.use('/v1', jobRoutes);
 app.use('/v1', templateRoutes);
+app.use('/v1', projectRoutes);
 
 // ── Error handler (must be last) ──────────────────────
 app.use(errorHandler);

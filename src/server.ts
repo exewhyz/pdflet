@@ -4,6 +4,7 @@ import app from './app.js';
 import logger from './utils/logger.js';
 import { closeBrowser } from './services/pdfService.js';
 import { seedDefaultTemplates } from './seeds/templates.js';
+import { seedDefaultProject } from './seeds/project.js';
 
 async function start(): Promise<void> {
   try {
@@ -13,6 +14,7 @@ async function start(): Promise<void> {
     });
 
     await seedDefaultTemplates();
+    await seedDefaultProject();
 
     app.listen(config.port, () => {
       logger.info(`Server running on http://localhost:${config.port}`, { env: config.nodeEnv });
