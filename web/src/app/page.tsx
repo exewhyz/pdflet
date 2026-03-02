@@ -45,11 +45,15 @@ export default function DashboardPage() {
     ]);
     setJobs(jobsData.jobs);
     setProject(projectData);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
-    fetchData().finally(() => setLoading(false));
-    const handler = () => { setLoading(true); fetchData().finally(() => setLoading(false)); };
+    const handler = () => {
+      setLoading(true);
+      fetchData();
+    };
+    handler();
     window.addEventListener('rf_project_changed', handler);
     return () => window.removeEventListener('rf_project_changed', handler);
   }, [fetchData]);

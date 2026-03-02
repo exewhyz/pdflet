@@ -16,11 +16,7 @@ export async function listJobs(
     const skip = (page - 1) * limit;
 
     const [jobs, total] = await Promise.all([
-      Job.find({ projectId: req.projectId })
-        .sort({ createdAt: -1 })
-        .skip(skip)
-        .limit(limit)
-        .lean(),
+      Job.find({ projectId: req.projectId }).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
       Job.countDocuments({ projectId: req.projectId }),
     ]);
 
