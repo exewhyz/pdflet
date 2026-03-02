@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
 import { getTemplates, createTemplateApi, type Template } from '@/lib/api';
+import Image from 'next/image';
 
 const catColors: Record<string, string> = {
   professional: '#6366f1',
@@ -362,10 +363,12 @@ export default function TemplatesPage() {
                       }}
                     />
                     {tpl.previewImageUrl ? (
-                      <img
+                      <Image
                         src={tpl.previewImageUrl}
                         alt={tpl.name}
                         className="absolute inset-0 w-full h-full object-cover"
+                        width={100}
+                        height={100}
                       />
                     ) : (
                       <div className="flex flex-col items-center gap-2 z-10">

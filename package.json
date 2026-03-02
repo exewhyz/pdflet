@@ -8,10 +8,10 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
-    "lint": "eslint src/ sdk/",
-    "lint:fix": "eslint src/ sdk/ --fix",
-    "format": "prettier --write \"src/**/*.ts\" \"sdk/**/*.ts\"",
-    "format:check": "prettier --check \"src/**/*.ts\" \"sdk/**/*.ts\"",
+    "lint": "eslint src/ sdk/src/",
+    "lint:fix": "eslint src/ sdk/src/ --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"sdk/src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"sdk/src/**/*.ts\"",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [

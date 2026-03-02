@@ -17,14 +17,16 @@ const app = express();
 
 // ── Global middleware ─────────────────────────────────
 app.use(helmet());
-app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:3333',
-    process.env.FRONTEND_URL || '',
-  ].filter(Boolean),
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3333',
+      process.env.FRONTEND_URL || '',
+    ].filter(Boolean),
+    credentials: true,
+  }),
+);
 app.use(express.json({ limit: '5mb' }));
 app.use(rateLimiter);
 

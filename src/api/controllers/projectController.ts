@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import mongoose from 'mongoose';
+import type mongoose from 'mongoose';
 import type { AuthenticatedRequest } from '../../middleware/apiKeyAuth.js';
 import Project from '../../models/Project.js';
 import User from '../../models/User.js';
@@ -72,9 +72,7 @@ export async function listProjects(
   next: NextFunction,
 ): Promise<void> {
   try {
-    const projects = await Project.find({ isActive: true })
-      .sort({ createdAt: -1 })
-      .lean();
+    const projects = await Project.find({ isActive: true }).sort({ createdAt: -1 }).lean();
 
     const projectList = await Promise.all(
       projects.map(async (p) => {

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import mongoose from 'mongoose';
+import type mongoose from 'mongoose';
 import User from '../models/User.js';
 import Project from '../models/Project.js';
 import logger from '../utils/logger.js';
@@ -71,10 +71,7 @@ function ensureFrontendKey(key: string): void {
 
     if (content.includes('NEXT_PUBLIC_API_KEY=')) {
       // Update existing value
-      const updated = content.replace(
-        /NEXT_PUBLIC_API_KEY=.*/,
-        `NEXT_PUBLIC_API_KEY=${key}`,
-      );
+      const updated = content.replace(/NEXT_PUBLIC_API_KEY=.*/, `NEXT_PUBLIC_API_KEY=${key}`);
       if (updated !== content) {
         fs.writeFileSync(WEB_ENV_FILE, updated, 'utf-8');
         logger.info('Updated NEXT_PUBLIC_API_KEY in web/.env.local');
