@@ -7,3 +7,5 @@ build/
 .vscode/
 .idea/
 coverage/
+storage/
+.dashboard-key

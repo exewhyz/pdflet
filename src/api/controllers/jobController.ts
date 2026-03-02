@@ -3,6 +3,34 @@ import type { AuthenticatedRequest } from '../../middleware/apiKeyAuth.js';
 import Job from '../../models/Job.js';
 
 /**
+ * GET /v1/jobs
+ */
+export async function listJobs(
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const page = Math.max(parseInt(req.query.page as string, 10) || 1, 1);
+    const limit = Math.min(parseInt(req.query.limit as string, 10) || 20, 100);
+    const skip = (page - 1) * limit;
+
+    const [jobs, total] = await Promise.all([
+      Job.find({ projectId: req.projectId })
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .lean(),
+      Job.countDocuments({ projectId: req.projectId }),
+    ]);
+
+    res.json({ jobs, total, page, limit });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
  * GET /v1/job/:id
  */
 export async function getJob(
