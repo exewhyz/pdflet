@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import { generatePdf, getTemplates, type Template } from '@/lib/api';
@@ -155,6 +155,14 @@ const inputClass =
 /* ── Main Page ─────────────────────────────────────── */
 
 export default function GeneratePage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen"><div className="animate-spin h-8 w-8 border-2 border-accent border-t-transparent rounded-full" /></div>}>
+      <GeneratePageInner />
+    </Suspense>
+  );
+}
+
+function GeneratePageInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [form, setForm] = useState<ResumeForm>(DEFAULT_FORM);
