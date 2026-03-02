@@ -23,7 +23,7 @@ app.use(
     origin: [
       'http://localhost:3000',
       'http://localhost:3333',
-      config.appUrl || '',
+      config.frontendUrl || '',
     ].filter(Boolean),
     credentials: true,
   }),

@@ -28,6 +28,7 @@ export interface AppConfig {
   inngest: InngestConfig;
   smtp: SmtpConfig;
   appUrl: string;
+  frontendUrl: string;
 }
 
 const config: AppConfig = {
@@ -57,6 +58,7 @@ const config: AppConfig = {
   },
 
   appUrl: process.env.APP_URL ?? 'http://localhost:4000',
+  frontendUrl: process.env.FRONTEND_URL ?? 'http://localhost:3000',
 };
 
 export default config;
