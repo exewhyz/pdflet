@@ -10,6 +10,7 @@ import {
   listProjects,
   createProjectApi,
   setActiveApiKey,
+  ensureActiveApiKey,
   type ProjectInfo,
   type ProjectListItem,
 } from '@/lib/api';
@@ -49,8 +50,10 @@ export function Sidebar() {
   }, []);
 
   useEffect(() => {
-    loadProject();
-    loadOrgs();
+    ensureActiveApiKey().then(() => {
+      loadProject();
+      loadOrgs();
+    });
     const handler = () => {
       loadProject();
       loadOrgs();
